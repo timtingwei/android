@@ -78,9 +78,53 @@ so文件由java层调用
 
 二进制不方便阅读(ELF), 转换成16进制阅读. 一个16进制操作数对应四个二进制操作数
 
-`malloc  动态分配一段内存空间`
-
+*malloc  动态分配一段内存空间*
+`(int*)malloc(sizeof(int))`
 60-> 0x3c -> 111100 => 0011 1100 short 2个字节 => 0000 0000 0011 1100 int四个字节
 int类型占据4字节
 short类型占据2字节
 
+
+*calloc 动态分配一段连续的内存空间*
+`(int*)callloc(3, sizeof(int));   //等价于(int*)malloc(sizeof(int)*3)`
+
+*free   释放内存空间*
+free返回01成功与否
+
+*realloc 重新分配内存空间*
+`int* number = (int*)realloc(num_s, sizeof(int))    // 把分配给short的内存空间扩大成int`
+
+// 如果是number是int类型的指针
+number = address
+number = address + 4
+
+### 3.结构体指针
+
+结构体指针指针变量的值, 是结构体数组的首地址
+
+在struct 后接 student = {para1, para2, para3};  // 可以直接初始化
+
+两种访问方式
+`
+(*student).num
+student->num
+`
+
+字符数组的赋值方式
+`strcpy(s, "mituh");    //不要直接赋值 `
+
+
+### 4.共用体
+union
+共用体如果定义了, 相当于成员变量的最大字节类型的值
+实际应用不多, 有些场合相对于struct效率更高
+
+
+### 5.枚举
+
+前面默认从0开始, 当一个数出现定义后, 其右边的数会依次+1
+
+
+## 7.19
+
+### 文件读写操作
