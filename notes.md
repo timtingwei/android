@@ -125,6 +125,25 @@ union
 前面默认从0开始, 当一个数出现定义后, 其右边的数会依次+1
 
 
-## 7.19
+## 7.20
 
 ### 文件读写操作
+
+fopen和fclose是一种习惯性的组合
+*fopen(str, FILE*, 'type');    // r, w, x, a, a+, rt;  rt允许读和写 （这些就是一些文件流的交互规则）*
+`
+fputc(ch, fp);             // 写入文件字符
+ch = fgetc(fp);            // 读取文件字符 遍历文件内容配合 if (!feof(fp)) {}
+fputs(str, fp);            // 文件写入字符串
+fgets(char[], size, fp);   // 读入文件字符串
+fprintf(fp, format, str);       // 文件分析常用, 把str打印到文件
+fscanf();                       // 从文件扫入
+`
+
+chmod其实也是一个ELF可执行程序, 只是由系统提供的
+
+`
+还有两个没学 对数据块的操作, 放在后面学
+fread(buffer, size, count, fp);
+fwrite(buffer, size, count, fp);
+`
