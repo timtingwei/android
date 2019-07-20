@@ -147,3 +147,5 @@ chmod其实也是一个ELF可执行程序, 只是由系统提供的
 fread(buffer, size, count, fp);
 fwrite(buffer, size, count, fp);
 `
+
+fread, fwrite针对struct的文件操作进行读写, buffer指的是指针, 需要引用传入数组中的地址
