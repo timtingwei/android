@@ -149,3 +149,27 @@ fwrite(buffer, size, count, fp);
 `
 
 fread, fwrite针对struct的文件操作进行读写, buffer指的是指针, 需要引用传入数组中的地址
+
+## 7.21
+### 快速开发一款app
+用Android Studio开发App, 尽量建空项目
+src->MainActivity.java 用户能看的到的界面
+
+res/layout/activity_main.xml 布局文件
+res/values/strings.xml  字符串文件, 和布局文件存在引用关系
+
+### 配置文件
+res/AndroidManifest.xml
+配置文件能找到一些加固, 一些调用情况
+`<intent-filter>
+<!-- 中间是程序的入口界面 -->
+</intent-filter>`
+
+`编译流程: .java=>.class=>.smali=>.dex
+可执行程序:.dex,   动态链接库:.so
+`
+
+练习: 用了button(按钮), TextView(文本提示框), EditText(文本编辑框)
+文本编辑框有个输入类型需要选择
+
+还没解决字体大小, 输入框的数据怎么和完成结合起来, 排列的方式
