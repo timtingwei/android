@@ -173,3 +173,17 @@ res/AndroidManifest.xml
 文本编辑框有个输入类型需要选择
 
 还没解决字体大小, 输入框的数据怎么和完成结合起来, 排列的方式
+
+### java层实现配置文件控件的逻辑
+
+在src/MainActivity.java文件里
+
+1. 声明控件的成员变量
+2. 在OnCreate()方法中, 初始化控件, 设置点击事件, 调用login方法
+3. 在MainActivity类中实现login函数,`private boolean login(String username, String pwd)`实现密码验证的逻辑
+
+
+几个小技巧
+1. ctrl+shift+o 可以快速导包
+2. String pwd = et_username.getText().toString().trim();   //可以从文本编辑控件获取数据
+3. Toast.makeText(MainActivity.this, "Login failed!!", 1).show();  // 弹出提示框中吐司函数, 上下文, 提示字符串, 时间; 注意还要show()出来
