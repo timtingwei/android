@@ -187,3 +187,100 @@ res/AndroidManifest.xml
 1. ctrl+shift+o 可以快速导包
 2. String pwd = et_username.getText().toString().trim();   //可以从文本编辑控件获取数据
 3. Toast.makeText(MainActivity.this, "Login failed!!", 1).show();  // 弹出提示框中吐司函数, 上下文, 提示字符串, 时间; 注意还要show()出来
+
+
+### 反编译apk分析smali汇编语言
+
+这块比较难的 对比着看了以下 之后可能会深入学习
+
+### native层和jni层之间的接口
+
+看nkd文件的解压包组成
+.o文件是链接库
+
+尝试用ndk/toolchain目录下的objdump -S 运行so文件, 得到arm汇编代码; 分析时候更多用NDA？？老师口音很重
+
+DNK是C和JAVA之间的中间接口
+
+纯java开发用的是android sdk开发, 自己用的辅助只要用C写好编译成apk就可以
+
+### 安卓系统框架 和 注册方式
+
+
+安卓系统框架图:
+应用层开发(Android SDK开发)
+框架层开发(Android SDK开发)
+核心类库层(NDK开发)
+安卓Runtime(Dalvik虚拟机/ART)
+Linux内核 
+
+
+注册方式:
+java.com 意味着是静态注册: 提供JNK接口, 调用C/C++层; 逆向难度降低
+.so文件里有JNI_OnL oad 基本上是动态注册: so和java层之间调用频繁, 安全较好
+
+包名+类型+方法名
+
+## 7.22
+### native层之so的加载流程
+
+初始化
+把so载入内存
+链接阶段
+
+
+
+1.关键函数:(抢猫的思路很关键)
+dlopen() 打开一个so, fopen打开文件; hook操作就是在so里面找到函数(地址), 调用函数
+dlsym()  获取某个函数在内存中的地址 
+调用该函数
+dlerror() 处理错误的函数
+
+
+2.初始化
+.init()
+.init_array() 
+
+3. 常用类
+Log 打印log日志信息 
+
+4. Root权限
+  shell权限只能进行部分操作
+  读写内存数据=>内存页属性的修改mprotect=>r/w/x chmod 777 
+  
+### native层之dlopen与so链接
+
+elfhdr: 要了解下elf文件头, readelf -e .so的读取elf文件也会出现
+
+so文件用section来定义, section根据类型归并成段program , 程序执行时, 段的效率更高
+
+1. 阅读代码的工具: sublime适合c, c++, java, smali
+
+### sdk工具与环境配置
+
+x86, arm; x86更快点, 但有些需求只能用arm
+
+adt/sdk/tools/ddms.bat: 获取id进程信息
+如果要频繁用这些命令的话, 配置一下环境
+
+x86模拟器无法运行:adt/sdk/extras/intel/hard../IntelHaxm.exe安装一下
+
+android studio/sdk manager.exe 
+1. 更新安装 arm v7, armv8
+2. 需要在options里面配置代理镜像
+
+android studio/avd manager.exe 
+创建模拟器
+
+### IDA工具使用
+.W代表32位， 4字节
+CMP:比较
+MOV:数据传送
+LDR:寄存器和存储器的访问, 存在方向<-
+PUSH: 压栈
+POP: 出栈
+
+IDA按 空格 进入图表视图
+Proximity browser路径视图
+
+绿色箭头:true; 红色: false; 蓝色: 正常流程
