@@ -4,6 +4,7 @@
 
 #include <cstdio>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 #define MaxN 10000
@@ -84,3 +85,5 @@ int main() {
 1: 4
 
  */
+
+// Update
